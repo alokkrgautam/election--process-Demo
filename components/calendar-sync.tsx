@@ -38,7 +38,7 @@ export function CalendarSync() {
         </div>
 
         <Button 
-          variant="secondary" 
+          variant="outline" 
           className="w-full gap-2 text-xs h-10"
           onClick={() => window.open(googleCalendarUrl, '_blank')}
         >
