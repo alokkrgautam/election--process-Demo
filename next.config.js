@@ -1,10 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    turbopack: {
-      root: '.',
-    },
-  },
   // Ensure images are handled correctly
   images: {
     unoptimized: true,
