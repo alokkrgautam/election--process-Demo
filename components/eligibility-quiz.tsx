@@ -8,6 +8,10 @@ import { Button } from "@/components/ui/button"
 import { MapPin, CheckCircle2, AlertCircle } from "lucide-react"
 import { useRewards } from "./rewards-context"
 
+/**
+ * Array of questions for the eligibility quiz.
+ * Follows a branching logic where answers lead to the next step or a failure state.
+ */
 const questions = [
   {
     id: 1,
@@ -29,6 +33,17 @@ const questions = [
   },
 ]
 
+/**
+ * EligibilityQuiz Component
+ * 
+ * A gamified quiz to help users determine their eligibility to vote in Indian elections.
+ * It uses success celebrations and points integration from the RewardsContext.
+ * 
+ * Logic follows the ECI guidelines (Citizenship, Age, Residency).
+ * @see {@link checkVoterEligibility} in @/lib/election-logic for the underlying rules.
+ * 
+ * @returns React component for the eligibility quiz.
+ */
 export function EligibilityQuiz() {
   const [currentStep, setCurrentStep] = React.useState(1)
   const [direction, setDirection] = React.useState(1)

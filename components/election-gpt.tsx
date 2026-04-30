@@ -6,9 +6,17 @@ import { MessageCircle, X, Send, Bot, User, Sparkles, Move } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
+import { GoogleGenerativeAI } from "@google/generative-ai"
+
+/**
+ * Message type for the chat interface.
+ */
 type Message = {
+  /** Unique identifier for the message */
   id: string
+  /** Role of the sender: 'user' or 'ai' */
   role: "user" | "ai"
+  /** Content of the message in markdown or plain text */
   content: string
 }
 
@@ -18,14 +26,6 @@ const presetQuestions = [
   "What is the limit a candidate can spend?",
   "What challenges if we add vote using biometric?",
 ]
-
-const dummyResponses: Record<string, string> = {
-  "I saw a candidate distributing cash. What should I do?": "IDENTIFY THE CHALLENGE: That is a clear violation of the Model Code of Conduct (MCC) and bribery laws! 🚨\n\nPROVIDE THE SOLUTION: According to ECI guidelines and the RPA, bribing voters with cash is strictly prohibited to ensure free and fair elections. ⚖️\n\nCALL TO ACTION: Please report this immediately using the ECI's cVIGIL app! Upload a photo/video, and action will be taken. 📱\n\nWould you like to earn a 'Democracy Defender' badge by answering a quick question about voting rights? 🏆",
-  "How does the biometric voting simulation work?": "AADHAAR LINKING: In our simulation, the app uses the UIDAI API to cross-check your Aadhaar number against a live biometric scan (Face/Iris/Fingerprint). 👁️\n\nAUTHENTICATION: This is a secure 1:1 matching process. Biometric data is verified but NOT stored on our servers, protecting your privacy. 🔒\n\nFUTURE VISION: While the Supreme Court is currently reviewing biometric voting (as of April 2026), our app provides a secure pilot simulation of this future technology! 🇮🇳",
-  "What is the limit a candidate can spend?": "IDENTIFY THE CHALLENGE: You're asking about campaign expenditure limits, a crucial part of the MCC! 💸\n\nPROVIDE THE SOLUTION: Yes! For the 2026 elections, limits are strictly monitored: ₹40 lakh for Assembly candidates and ₹95 lakh for Lok Sabha. Also, cash exceeding ₹50,000 in a vehicle can be seized unless justified! ⚖️\n\nCALL TO ACTION: Suspect overspending? Report it via the cVIGIL app. 📱\n\nReady for a challenge? Ask me a quiz question to earn your 'Election Expert' badge! 🗳️",
-  "What challenges if we add vote using biometric?": "TECHNICAL HURDLES: Implementing a nationwide biometric system requires massive infrastructure, consistent internet connectivity in remote areas, and reliable power sources. 🌐\n\nPRIVACY CONCERNS: There are significant debates around data security, potential breaches, and ensuring that biometric data isn't misused. 🔒\n\nINCLUSIVITY ISSUES: Elderly voters, manual laborers whose fingerprints may have faded, or individuals with disabilities might face authentication failures. 🤝\n\nLEGAL AND ETHICAL: It requires strict legislation to prevent disenfranchisement due to technical glitches. ⚖️",
-  default: "That's a fantastic question! 🌟 As the 2026 Election Compliance AI, I must remain neutral. While I don't have that specific data in my dummy memory, a real implementation would check the latest ECI rules to assist you. Ask me about MCC violations or biometric registration! ⚖️"
-}
 
 export function ElectionGPT() {
   const [isOpen, setIsOpen] = React.useState(false)
@@ -48,7 +48,7 @@ export function ElectionGPT() {
     scrollToBottom()
   }, [messages, isTyping, isOpen])
 
-  const handleSend = (text: string) => {
+  const handleSend = async (text: string) => {
     if (!text.trim()) return
 
     const userMsg: Message = { id: Date.now().toString(), role: "user", content: text }
@@ -56,27 +56,31 @@ export function ElectionGPT() {
     setInputValue("")
     setIsTyping(true)
 
-    // Simulate AI response delay
-    setTimeout(() => {
-      setIsTyping(false)
-      
-      const lowerText = text.toLowerCase()
-      // Find a match if the user's text is similar to our predefined questions
-      const matchedKey = Object.keys(dummyResponses).find(k => {
-        if (k === 'default') return false;
-        const lowerK = k.toLowerCase().replace(/[^a-z0-9 ]/g, '')
-        const cleanText = lowerText.replace(/[^a-z0-9 ]/g, '')
-        return lowerK.includes(cleanText) || cleanText.includes(lowerK)
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages, text }),
       })
 
-      const responseContent = matchedKey 
-        ? dummyResponses[matchedKey] 
-        : dummyResponses.default
+      const data = await response.json()
+      if (data.error) throw new Error(data.error)
 
-      const aiMsg: Message = { id: (Date.now() + 1).toString(), role: "ai", content: responseContent }
+      const aiMsg: Message = { id: (Date.now() + 1).toString(), role: "ai", content: data.text }
       setMessages((prev) => [...prev, aiMsg])
-    }, 1500)
+    } catch (error) {
+      console.error("Chat Error:", error)
+      const errorMsg: Message = { 
+        id: (Date.now() + 1).toString(), 
+        role: "ai", 
+        content: "I apologize, but I'm having trouble connecting to the ECI data centers right now. Please try again in a moment! 🇮🇳" 
+      }
+      setMessages((prev) => [...prev, errorMsg])
+    } finally {
+      setIsTyping(false)
+    }
   }
+
 
   return (
     <>

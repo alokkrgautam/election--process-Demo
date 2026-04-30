@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Use output: 'export' for static site generation (required for GitHub Pages)
-  output: 'export',
-  
-  // Ensure images are handled correctly for static export
+  // Ensure images are handled correctly
   images: {
     unoptimized: true,
   },
