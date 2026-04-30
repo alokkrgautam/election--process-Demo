@@ -6,7 +6,10 @@ import { RewardsHeader } from "@/components/rewards-header"
 import { PollingBoothFinder } from "@/components/polling-booth-finder"
 import { VoterChecklist } from "@/components/voter-checklist"
 import { ElectionGlossary } from "@/components/election-glossary"
+import { VoterIdScanner } from "@/components/voter-id-scanner"
+import { CalendarSync } from "@/components/calendar-sync"
 import { CloudStatus } from "@/components/cloud-status"
+import { LanguageTranslator } from "@/components/language-translator"
 
 export default function Home() {
   return (
@@ -26,6 +29,7 @@ export default function Home() {
             <div className="hidden md:block">
               <CloudStatus />
             </div>
+            <LanguageTranslator />
             <RewardsHeader />
             <ThemeToggle />
           </div>
@@ -54,8 +58,12 @@ export default function Home() {
         </section>
 
         {/* Tools Section */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="md:col-span-2 lg:col-span-1">
+            <VoterIdScanner />
+          </div>
           <PollingBoothFinder />
+          <CalendarSync />
           <VoterChecklist />
           <ElectionGlossary />
         </section>

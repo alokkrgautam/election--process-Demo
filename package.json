@@ -6,7 +6,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:fast": "vitest run --parallel"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
