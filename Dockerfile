@@ -13,11 +13,12 @@ WORKDIR /app
 ENV NODE_ENV production
 ENV PORT 8080
 
-COPY --from=builder /app/next.config.js ./
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
+# Next.js standalone build copies everything needed to run into .next/standalone
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public* ./public/
 
 EXPOSE 8080
 
-CMD ["npm", "start"]
+# Running the server directly using node
+CMD ["node", "server.js"]

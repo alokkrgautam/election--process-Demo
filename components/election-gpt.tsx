@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { MessageCircle, X, Send, Bot, User, Sparkles, Move } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import DOMPurify from "dompurify"
 
 import { GoogleGenerativeAI } from "@google/generative-ai"
 
@@ -154,9 +155,8 @@ export function ElectionGPT() {
                           ? "bg-accent text-accent-foreground rounded-tr-none"
                           : "bg-background/90 border border-border/50 rounded-tl-none"
                       }`}
-                    >
-                      {msg.content}
-                    </div>
+                      dangerouslySetInnerHTML={{ __html: msg.role === 'ai' ? DOMPurify.sanitize(msg.content) : msg.content }}
+                    />
                     </motion.div>
                   ))}
                   {isTyping && (

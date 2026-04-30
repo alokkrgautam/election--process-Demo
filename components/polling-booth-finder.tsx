@@ -46,10 +46,20 @@ export function PollingBoothFinder() {
         </form>
 
         {result && (
-          <div className="mt-4 p-4 rounded-lg bg-primary/10 border border-primary/20">
-            <h4 className="font-bold text-foreground">Assigned Polling Station:</h4>
-            <p className="text-sm font-medium mt-1">{result.name}</p>
-            <p className="text-xs text-muted-foreground">{result.address}</p>
+          <div className="mt-4 p-4 rounded-lg bg-primary/10 border border-primary/20 space-y-3">
+            <div>
+              <h4 className="font-bold text-foreground">Assigned Polling Station:</h4>
+              <p className="text-sm font-medium mt-1">{result.name}</p>
+              <p className="text-xs text-muted-foreground">{result.address}</p>
+            </div>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="w-full text-xs gap-2"
+              onClick={() => window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(result.name + ' ' + result.address)}`, '_blank')}
+            >
+              <MapPin className="w-3 h-3" /> View on Google Maps
+            </Button>
           </div>
         )}
       </CardContent>

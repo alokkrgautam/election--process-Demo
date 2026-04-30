@@ -6,6 +6,7 @@ import { RewardsHeader } from "@/components/rewards-header"
 import { PollingBoothFinder } from "@/components/polling-booth-finder"
 import { VoterChecklist } from "@/components/voter-checklist"
 import { ElectionGlossary } from "@/components/election-glossary"
+import { CloudStatus } from "@/components/cloud-status"
 
 export default function Home() {
   return (
@@ -22,6 +23,9 @@ export default function Home() {
             </span>
           </div>
           <div className="flex items-center gap-4">
+            <div className="hidden md:block">
+              <CloudStatus />
+            </div>
             <RewardsHeader />
             <ThemeToggle />
           </div>
@@ -73,7 +77,11 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm text-muted-foreground mb-8">
             <div>
               <h3 className="text-lg font-bold text-foreground mb-4">VoteGuide 🇮🇳</h3>
-              <p className="opacity-80">A gamified learning experience for Indian democracy. Built for Prompt War Hack2Skill Google.</p>
+              <p className="opacity-80 mb-4">A gamified learning experience for Indian democracy. Built for Prompt War Hack2Skill Google.</p>
+              <div className="flex items-center gap-2 bg-white/50 dark:bg-black/20 p-2 rounded-lg border w-fit">
+                <img src="https://www.gstatic.com/images/branding/product/2x/google_cloud_64dp.png" alt="Google Cloud" className="w-6 h-6" />
+                <span className="text-[10px] font-bold uppercase tracking-widest opacity-70">Powered by Google Cloud</span>
+              </div>
             </div>
             <div>
               <h3 className="font-bold text-foreground mb-4">Important Links</h3>

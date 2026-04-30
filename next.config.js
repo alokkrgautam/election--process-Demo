@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   // Ensure images are handled correctly
   images: {
     unoptimized: true,
