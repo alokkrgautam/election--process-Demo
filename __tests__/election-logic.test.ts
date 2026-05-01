@@ -2,6 +2,11 @@ import { describe, it, expect } from 'vitest'
 import { checkVoterEligibility, getSpendingLimit } from '@/lib/election-logic'
 
 describe('Election Logic Tests', () => {
+  it('should be eligible for Overseas Voters even if not resident', () => {
+    const result = checkVoterEligibility(25, true, false, true)
+    expect(result.status).toBe('eligible')
+  })
+
   it('should mark as eligible if all criteria are met', () => {
     const result = checkVoterEligibility(25, true, true)
     expect(result.status).toBe('eligible')

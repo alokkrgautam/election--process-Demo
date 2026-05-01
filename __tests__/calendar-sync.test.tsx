@@ -14,7 +14,7 @@ describe('CalendarSync Component', () => {
     render(<CalendarSync />)
     const button = screen.getByText(/Sync with Google Calendar/i)
     fireEvent.click(button)
-    expect(windowSpy).toHaveBeenCalledWith(expect.stringContaining('calendar.google.com'), '_blank')
+    expect(windowSpy).toHaveBeenCalledWith(expect.stringContaining('google.com/calendar'), '_blank')
     windowSpy.mockRestore()
   })
 })

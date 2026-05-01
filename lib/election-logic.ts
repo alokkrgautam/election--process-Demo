@@ -5,15 +5,15 @@
  * @param isResident - Boolean indicating if the person is a resident of the constituency.
  * @returns { status: 'eligible' | 'ineligible', reason?: string }
  */
-export function checkVoterEligibility(age: number, isIndianCitizen: boolean, isResident: boolean) {
+export function checkVoterEligibility(age: number, isIndianCitizen: boolean, isResident: boolean, isOverseas: boolean = false) {
   if (!isIndianCitizen) {
     return { status: 'ineligible', reason: 'Only Indian citizens are eligible to vote.' }
   }
   if (age < 18) {
     return { status: 'ineligible', reason: 'Minimum age for voting is 18 years.' }
   }
-  if (!isResident) {
-    return { status: 'ineligible', reason: 'Must be an ordinary resident of the constituency.' }
+  if (!isResident && !isOverseas) {
+    return { status: 'ineligible', reason: 'Must be an ordinary resident or a registered Overseas Voter (Form 6A).' }
   }
   return { status: 'eligible' }
 }
