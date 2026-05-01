@@ -1,67 +1,43 @@
-# 🇮🇳 One‑Stop Indian Voter Guide App 🗳️
+# VoteGuide 🇮🇳 - One-Stop Indian Election Guide
 
-Built for **Prompt War Hack2Skill Google**, this Gamified Election Guide web application serves as a one‑stop solution for Indian voters. The app makes learning about the Indian election process, timelines, voter eligibility, and practical steps engaging, accessible, and interactive.
+**VoteGuide** is a high-fidelity, gamified web application designed to empower Indian voters for the 2026 General Elections. Built for the **Prompt War Hack2Skill Google** hackathon, this platform leverages the power of Google Cloud and Gemini AI to provide a secure, accessible, and interactive voter education experience.
 
-## Core Features ✨
+## 🚀 Live Demo
+- **URL:** [election-demo-472193589142.us-central1.run.app](https://election-demo-472193589142.us-central1.run.app)
+- **GitHub:** [alokkrgautam/election--process-Demo](https://github.com/alokkrgautam/election--process-Demo)
 
-### Currently Implemented:
-- **Gamified Interactive Timeline**: Visual roadmap of the Indian election process (Voter Registration → MCC → Polling Day → Vote Counting).
-- **Eligibility Checker (Quiz)**: Conversational quiz to verify voter eligibility based on Indian criteria (age, citizenship, residency).
-- **Election GPT Chatbot**: Friendly, quiz‑master style assistant answering FAQs like “How do I apply for a Voter ID?”, “What documents do I need?”, and “What is VVPAT?”.
-- **Gamified Rewards System**: Earn points and badges (e.g., "Process Master", "Registered Voter") for completing timeline phases and quizzes.
-- **Modern UI & Theming**: Built with Tailwind CSS and Shadcn UI concepts, featuring Light/Dark modes, and a custom Indian patriotic theme (saffron, white, green, blue accents).
+## ✨ Key Features
+- **🤖 BharatBot (AI Assistant):** A secure, Gemini-powered chatbot that provides neutral and accurate information about election compliance and voter rights.
+- **📸 AI Voter ID Scanner:** Uses **Gemini 1.5 Flash (Vision)** to instantly extract details from Voter ID cards for an automated onboarding experience.
+- **🗺️ Polling Booth Finder:** Interactive integration with **Google Maps** to help users locate their assigned voting stations.
+- **📅 Election Calendar Sync:** One-click integration with **Google Calendar** to set reminders for critical polling dates.
+- **✅ Eligibility Quiz:** A gamified assessment of voter eligibility based on ECI standards.
+- **📊 Cloud Status Monitor:** Real-time synchronization status with **Firebase Firestore**.
+- **🌍 Multilingual Support:** AI-driven translation support for major Indian languages.
 
-### Future Roadmap (Not Available This Time) 🚀:
-- **Polling Booth Finder (Mock)**: Demo tool to show how voters can locate polling stations with sample/dummy data.
-- **Personalized Voter Checklist**: Auto‑generated checklist of documents and steps needed before election day.
-- **Election Glossary Explorer**: Searchable glossary of Indian election terms (e.g., EPIC, NOTA, constituency).
-- **Scenario‑Based Simulations**: Role‑play as a voter, candidate, or election officer to understand responsibilities.
-- **Multilingual Support**: Content available in English + Hindi (expandable to regional languages).
-- **Accessibility Mode**: Voice narration, advanced screen reader compatibility, and high‑contrast themes.
-- **Advanced Gamification**: Unlock achievements like “First‑Time Voter”, “Election Expert”, “Democracy Defender” and a progress tracker dashboard showing learning completion.
+## 🛠️ Technology Stack
+- **Frontend:** Next.js 16 (App Router), Tailwind CSS, Framer Motion.
+- **AI/ML:** Google Generative AI (Gemini 1.5 Flash & Pro).
+- **Backend/Cloud:** Google Cloud Run, Firebase Firestore, Firebase Auth.
+- **Security:** DOMPurify (XSS protection), Server-side API Routes, Rate Limiting.
+- **Testing:** Vitest, React Testing Library.
 
-## Tech Stack 🛠️
-- **Framework**: Next.js (App Router)
-- **Styling**: Tailwind CSS (custom Indian patriotic theme: saffron, white, green, blue accents)
-- **Animations**: Framer Motion
-- **Icons**: lucide‑react
-- **Extras**: `canvas-confetti` (celebrations), `next-themes` (Light/Dark mode)
+## 🔒 Security & Architecture
+- **Server-Side API:** All Gemini AI calls are handled via secure server-side routes to protect API keys.
+- **DoS Protection:** Built-in in-memory rate limiting to prevent API abuse.
+- **Sanitization:** All AI-generated content is sanitized using DOMPurify before rendering.
+- **Dockerized:** Optimized using Next.js standalone output for maximum efficiency on Cloud Run.
 
-## How to Start Locally 🚀
+## 🧪 Testing
+The project includes a comprehensive testing suite verified via Vitest.
+```bash
+# Run tests
+npm test
+```
+Coverage includes:
+- Core Election Logic (Eligibility, Spending Limits).
+- Component Integration (Quiz, ID Scanner).
+- Cloud Service Connectivity.
 
-1. Ensure you have Node.js installed.
-2. Open your terminal and navigate to the project directory:
-   ```bash
-   cd "Election Demo"
-   ```
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
-4. Start the Next.js development server:
-   ```bash
-   npm run dev
-   ```
-5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the app.
-
-## Connecting a Real API for Election GPT 🤖
-Currently, `ElectionGPT` uses dummy data to simulate responses for a demonstration of UX/UI. To hook it up to a real LLM like Gemini API or OpenAI API:
-1. Open `components/election-gpt.tsx`.
-2. Locate the `handleSend` function.
-3. Replace the `setTimeout` simulation block with an actual API call (e.g., `fetch('/api/chat', ...)`).
-4. Create an API route in Next.js (e.g., `app/api/chat/route.ts`).
-5. Inside your server-side API route, securely use your API Key (e.g., `process.env.GEMINI_API_KEY`) to fetch the response from the LLM. 
-   **Always store API keys in environment variables (`.env.local`) and never expose them on the client side.**
-
-## Recruiter Highlights 🌟
-- Demonstrates clean architecture and accessibility best practices.
-- Showcases gamification and modern UI/UX design tailored for an Indian audience.
-- Built with Google‑centric coding standards for performance and scalability.
-
-## Verification Plan & Code Standards
-This project adheres to:
-- **Mobile Responsiveness**: Critical for the Indian mobile-first audience.
-- **Accessibility Testing**: Verified via keyboard navigation, contrast ratio checks, and basic screen reader compatibility.
-- **Validation**: Verified chatbot quick-question chips, auto-scroll, quiz progression, and celebratory success states.
-- **Clean Architecture**: Modular components inside `components/`.
-- **Responsive Design**: Mobile-first design principles.
+## 📜 License
+This project is for demonstration purposes for the Prompt War Hack2Skill Google hackathon.
